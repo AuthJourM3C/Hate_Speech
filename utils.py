@@ -37,10 +37,41 @@ def clean_accent(text):
     t = t.replace('ό', 'ο')
     t = t.replace('ώ', 'ω')
     t = t.replace('ς', 'σ')
+    # es
+    t = t.replace('Á', 'A')
+    t = t.replace('É', 'E')
+    t = t.replace('Í', 'I')
+    t = t.replace('Ñ', 'N')
+    t = t.replace('Ó', 'O')
+    t = t.replace('Ú', 'U')
+    t = t.replace('Ü', 'U')
+    t = t.replace('á', 'a')
+    t = t.replace('é', 'e')
+    t = t.replace('í', 'i')
+    t = t.replace('ñ', 'n')
+    t = t.replace('ó', 'o')
+    t = t.replace('ú', 'u')
+    t = t.replace('ü', 'u')
+
+    # it
+    t = t.replace('À', 'A')
+    t = t.replace('È', 'E')
+    t = t.replace('É', 'E')
+    t = t.replace('Ì', 'I')
+    t = t.replace('Ò', 'O')
+    t = t.replace('Ó', 'O')
+    t = t.replace('Ù', 'U')
+    t = t.replace('à', 'a')
+    t = t.replace('è', 'e')
+    t = t.replace('é', 'e')
+    t = t.replace('ì', 'i')
+    t = t.replace('ò', 'o')
+    t = t.replace('ó', 'o')
+    t = t.replace('ù', 'u')
     return t
 
 def preprocess_text(text):
-    stop= pd.read_csv("/content/drive/MyDrive/ΔΙΠΛΩΜΑΤΙΚΗ/Datasets/stopwords/stopwords__greek.csv", header=None )
+    stop= pd.read_csv("stopwords__greek.csv", header=None )
     stop= stop.values.tolist()
     stopw = [item for sublist in stop for item in sublist]
     stopwords=set(stopw)
