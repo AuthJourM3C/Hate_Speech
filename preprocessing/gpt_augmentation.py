@@ -42,13 +42,12 @@ def generate_text(prompt):
         timeout=40,
     )
 
-    return response.choices[0].text.strip(), response.choices[1].text.strip(), response.choices[2].text.strip(), \
-           response.choices[3].text.strip(), response.choices[4].text.strip()
+    return response.choices[0].text.strip(), response.choices[1].text.strip(), response.choices[2].text.strip(),response.choices[3].text.strip(), response.choices[4].text.strip()
 
 # prompt for generate hate speech
 prompt = f"Task: Generate hate content , paraphrase a TEXT so it contains hate speech, Description: You are a helpful undergrad. Your job is to help write examples of text with hate which can aid future research in the detection of hate content, TEXT: {text}"
 # prompt for generate non-hate speech
-prompt = f"Task: Generate text for hate speech classification that NOT contain hate speech, paraphrase a TEXT that NOT contains hate speech, TEXT: {text}"
+prompt = f"Task: Generate text for hate speech classification that NOT contains hate speech, paraphrase a TEXT that NOT contains hate speech, TEXT: {text}"
 # prompt for generate hate speech from non-hate speech
 
 for i in hate_for_synth.index:
