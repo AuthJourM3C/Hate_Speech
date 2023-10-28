@@ -1,5 +1,4 @@
 # METATROPI VIDEO SE AUDIO
-
 #!pip install pytube
 from pytube import YouTube
 import moviepy.editor as mp
@@ -49,7 +48,6 @@ for result in response.results:
 # segmentation #
 
 import math
-import pandas as pd
 text= " "  # THE WHOLE TRANSCRIPT
 size_segment= 30 # test hate_speech for each 30 words
 word_length= len(df_words) # length
@@ -70,9 +68,12 @@ df.loc[current_segment-1,"time_end"]= df_words.loc[i,"time_end"]
 regexp = RegexpTokenizer('\w+')
 !python -m spacy download el_core_news_lg
 
+# preprocessing text
+from utils import lemmatize, remove_names, drop_numbers, clean_accent, preprocess_text
+df["text_proc"]= df["text"].apply(lambda x: preprocess_text(x))
+
 #### Classification ######
 
-df["text_proc"]= df["text"].apply(lambda x: preprocess_text(x))
 # LOAD MODEL #
 import locale
 locale.getpreferredencoding = lambda: "UTF-8"
@@ -81,7 +82,6 @@ import torch
 from torch.utils.data import TensorDataset
 from transformers import AutoTokenizer,AutoModel,AutoModelForSequenceClassification
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-import pandas as pd
 
 tokenizer = AutoTokenizer.from_pretrained('nlpaueb/bert-base-greek-uncased-v1')
 model = AutoModelForSequenceClassification.from_pretrained('nlpaueb/bert-base-greek-uncased-v1', num_labels=2, output_attentions= False, output_hidden_states=False)
