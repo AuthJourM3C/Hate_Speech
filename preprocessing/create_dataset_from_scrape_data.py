@@ -95,7 +95,7 @@ print(English_NoHate_Positive.head())
 
 frames = [English_Hate_Negative,English_Hate_Neutral,English_Hate_Positive,English_NoHate_Negative,English_NoHate_Neutral,English_NoHate_Positive]
 English = pd.concat(frames)
-English.to_csv("C:/Users/thana/Desktop/Pharm Dataset/final/English.csv",header=True,index=False)
+English.to_csv("English.csv",header=True,index=False)
 
 #Greek_Hate_Negative
 length1= len(Greek_Hate_Negative.index)
@@ -159,7 +159,7 @@ Greek_NoHate_Positive["hate"]= hate1
 print(Greek_NoHate_Positive.head())
 frames= [Greek_Hate_Negative,Greek_Hate_Neutral,Greek_Hate_Positive,Greek_NoHate_Negative,Greek_NoHate_Neutral,Greek_NoHate_Positive]
 greek = pd.concat(frames)
-greek.to_csv("C:/Users/thana/Desktop/Pharm Dataset/final/Greek.csv",header=True,index=False)
+greek.to_csv("Greek.csv",header=True,index=False)
 
 #Other_Hate_Negative
 length1= len(Other_Hate_Negative.index)
@@ -223,7 +223,7 @@ Other_NoHate_Positive["hate"]= hate1
 print(Other_NoHate_Positive.head())
 frames= [Other_Hate_Negative,Other_Hate_Neutral,Other_Hate_Positive,Other_NoHate_Negative,Other_NoHate_Neutral,Other_NoHate_Positive]
 other = pd.concat(frames)
-other.to_csv("C:/Users/thana/Desktop/Pharm Dataset/final/other.csv",header=True,index=False)
+other.to_csv("other.csv",header=True,index=False)
 
 #Italian_Hate_Negative
 length1= len(Italian_Hate_Negative.index)
@@ -287,7 +287,7 @@ Italian_NoHate_Positive["hate"]= hate1
 print(Italian_NoHate_Positive.head())
 frames= [Italian_Hate_Negative,Italian_Hate_Neutral,Italian_Hate_Positive,Italian_NoHate_Negative,Italian_NoHate_Neutral,Italian_NoHate_Positive]
 italian = pd.concat(frames)
-italian.to_csv("C:/Users/thana/Desktop/Pharm Dataset/final/italian.csv",header=True,index=False)
+italian.to_csv("italian.csv",header=True,index=False)
 
 #Spanish_Hate_Negative
 length1= len(Spanish_Hate_Negative.index)
@@ -351,8 +351,8 @@ Spanish_NoHate_Positive["hate"]= hate1
 print(Spanish_NoHate_Positive.head())
 frames= [Spanish_Hate_Negative,Spanish_Hate_Neutral,Spanish_Hate_Positive,Spanish_NoHate_Negative,Spanish_NoHate_Neutral,Spanish_NoHate_Positive]
 spanish = pd.concat(frames)
-spanish.to_csv("C:/Users/thana/Desktop/Pharm Dataset/final/spanish.csv",header=True,index=False)
+spanish.to_csv("spanish.csv",header=True,index=False)
 
 frames= [English,greek, italian, other,spanish]
 Final_Dataset= pd.concat(frames)
-Final_Dataset.to_csv("C:/Users/thana/Desktop/Pharm Dataset/final/Final_Dataset.csv",header=True,index=False)
+Final_Dataset.to_csv("Final_Dataset.csv",header=True,index=False)
