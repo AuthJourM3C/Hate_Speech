@@ -119,13 +119,6 @@ def create_model():
   model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['Accuracy','Precision','Recall'])
   return model
 
-"""import tensorflow as tf
-model= create_model()
-model.summary
-for layer in model.layers:
-        print(f"Layer: {layer.name}, Output Shape: {layer.output_shape}")
-        
-"""
 
 # load train /dev / test ##
 # TRAIN
@@ -176,7 +169,6 @@ y_test= df_test["hate"].astype(int)
 print(len(text_train), len(df_train) ,len(text_train)- sum(y_train),sum(y_train))
 
 #CREATE INDEX OF ALL WORDS THAT ARE IN VOCABULARY
-# mode_embedding = 'fasttext', 'random'
 from tensorflow.keras.preprocessing.text import Tokenizer
 
 # Create a tokenizer
@@ -185,16 +177,13 @@ tokenizer.fit_on_texts(text_train)
 word_index = tokenizer.word_index
 
 embed_dim=300
-mode_embedding= 'fasttext'
 
-if mode_embedding == 'fasttext':
 #CREATE EMBEDDING MATRIX FOR EM
-    print('preparing embedding matrix...')
-    words_not_found = []
-    nb_words = len(word_index)
-    print(len(word_index))
-    embedding_matrix = np.zeros((nb_words, 300))
-    for word, i in word_index.items():
+print('preparing embedding matrix...')
+words_not_found = []
+nb_words = len(word_index)
+embedding_matrix = np.zeros((nb_words, 300))
+for word, i in word_index.items():
         if i >= nb_words:
             continue
         embedding_vector = ft.get_word_vector(word)
@@ -298,7 +287,3 @@ print('Accuracy: {:.2f}'.format(accuracy_test * 100),
                 "precision: {:.2f}".format(precision_test*100),
                 "recall: {:.2f}".format(recall_test*100),
                 "f1: {:.2f}".format(f1_test*100))
-
-"""for i in range(len(results)):
-    print(results[i])
-"""
