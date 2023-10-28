@@ -12,7 +12,7 @@ language= "greek" # "greek" or "italian" or "spanish"
 mode_train = "no_aug" # no_aug, aug_translated, aug_paraphrased, oversample, aug_all
 mode_translated ="none"    # "balanced" or "none"
 mode_paraphrased = "none"  # "balanced" or "none"
-
+#LOAD DATASETS #
 if (seed == 4):
   seed = 4
   df_train= pd.read_csv("X_train.csv")
@@ -29,7 +29,10 @@ if (seed == 31):
 
 # IMPORT TRANSLATED DATA
 df_translated = pd.read_csv("translated_greek.csv")
-
+if mode_translated == "none":
+  text_translated = df_translated["text_proc"].astype(str)
+  label_translated = df_translated["hate"].astype(int)
+  
 if mode_translated== "balanced" and language == "greek":
   df_translated= df_translated[df_translated["language"]=="italian"]
 
@@ -40,10 +43,6 @@ if mode_translated== "balanced" and language == "spanish":
   df_translated= df_translated[df_proc["hate"] == 1]
   sample= len(df_train[df_train["hate"]==0]) - len(df_train[df_train["hate"]==1])
   df_translated= df_translated.sample(n=sample, random_state=20)
-if mode_translated == "none":
-  text_translated = df_translated["text_proc"].astype(str)
-  label_translated = df_translated["hate"].astype(int)
-
 
 
 # IMPORT PARAPHRASED DATA
@@ -65,7 +64,8 @@ if mode_paraphrased == "balanced" and language=="italian":
   label_paraphrased= np.concatenate((hate_synth_label,hate_synth_label,nohate_synth_label,nohate_synth_label,nohate_synth_label),axis=0)
 
 # load train /dev / test ##
-# TRAIN
+
+# TRAIN #
 if mode_train== "no_aug":
   X_train = df_train["text_proc"].astype(str)
   y_train =df_train["hate"].astype(int)
@@ -128,7 +128,6 @@ encoded_data_test = tokenizer.batch_encode_plus(
     text_test, add_special_tokens=True, return_attention_mask=True, pad_to_max_length=True,
     max_length=128,  return_tensors='pt')
 
-print(encoded_data_val)
 input_ids_train = encoded_data_train['input_ids']
 attention_masks_train = encoded_data_train['attention_mask']
 labels_train = torch.tensor(y_train)
@@ -144,7 +143,7 @@ labels_test = torch.tensor(y_test)
 dataset_train = TensorDataset(input_ids_train, attention_masks_train, labels_train)
 dataset_val = TensorDataset(input_ids_val, attention_masks_val, labels_val)
 dataset_test = TensorDataset(input_ids_test, attention_masks_test, labels_test)
-
+## Import model ##
 if language == "greek":
   model = AutoModelForSequenceClassification.from_pretrained('nlpaueb/bert-base-greek-uncased-v1',num_labels= 2 , output_attentions= False, output_hidden_states=False)
 if language == "italian":
@@ -281,6 +280,7 @@ for epoch in tqdm(range(1, epochs + 1)):
     tqdm.write(f'Metrics (Weighted): {metrics}')
 
 _, predictions, true_vals = evaluate(dataloader_validation)
+## TEST SET EVALUATION ## 
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 from sklearn.metrics import roc_curve
