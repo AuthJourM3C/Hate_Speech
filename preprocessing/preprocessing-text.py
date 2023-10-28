@@ -75,7 +75,7 @@ def clean_accent(text):
 
     return t
 
-stop= pd.read_csv("/content/drive/MyDrive/ΔΙΠΛΩΜΑΤΙΚΗ/Datasets/stopwords/stopwords__greek.csv", header=None )
+stop= pd.read_csv("stopwords__greek.csv", header=None )
 stop= stop.values.tolist()
 stopw = [item for sublist in stop for item in sublist]
 stopwords=set(stopw)
